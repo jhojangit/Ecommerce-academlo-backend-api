@@ -24,14 +24,14 @@ beforeAll( async () => {
 
 
 test("POST /products debe crear un producto",  async () => {
-    // const category = await Category.create({name: "Busos"})
+    const category = await Category.create({name: "Busos"})
 
     const body = {
         title: "Chaqueta de Lana",
         description: "Chaqueta Blanca",
         brand: "Velez",
         price: 4500,
-        // categoryId: category.id
+        categoryId: category.id
     }
 
 
@@ -40,13 +40,10 @@ test("POST /products debe crear un producto",  async () => {
         .send(body)
         .set('Authorization', `Bearer ${token}`);
 
-    console.log(res.body);
-
-
 
     id = res.body.id
 
-    // await category.destroy();
+    await category.destroy();
     expect(res.status).toBe(201)
     expect(res.body.id).toBeDefined();
     expect(res.body.headline).toBe(body.headline);
